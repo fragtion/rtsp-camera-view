@@ -28,6 +28,9 @@ namespace Presenter.Presenters
         }
         public bool Stop() { return View.Stop(); }
         public bool IsPlaying { get => View.IsPlaying; }
+        public bool IsBuffering { get => View.IsBuffering; }
+        public bool IsPreparing { get => View.IsPreparing; }
+        public bool IsStopped { get => View.IsStopped; }
 
         public event Action Playing;
         public event Action Buffering;

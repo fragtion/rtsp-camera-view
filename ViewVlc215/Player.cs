@@ -85,6 +85,9 @@ namespace ViewVlc215
         public event Action LostStreamRestored;
 
         public bool IsPlaying { get => vlc1Status == VlcStatus.Playing; }
+        public bool IsBuffering { get => vlc1Status == VlcStatus.Buffering; }
+        public bool IsPreparing { get => vlc1Status == VlcStatus.Preparing; }
+        public bool IsStopped { get => vlc1Status == VlcStatus.Stopped; }
 
         public Player()
         {

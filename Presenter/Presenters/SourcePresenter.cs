@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Drawing.Text;
 using Model;
 using Presenter.Common;
 using Presenter.Views;
@@ -382,13 +384,77 @@ namespace Presenter.Presenters
         private void CheckNeedSwitch()
         {
             if (log) View.Log("CheckNeedSwitch");
-            if (_badH <= 0) return;
-            if (View.Height > _badH && View.Width > _badW)
+            if (_badH <= 0) {
+                if (!View.SrcName.Contains(" (Offline)")) { View.SrcName = View.SrcName + " (Offline)"; }
+                return;
+            }
+            else
             {
+                 if (View.SrcName.Contains(" (Offline)")) { View.SrcName = View.SrcName.Replace(" (Offline)", ""); }
+            }
+
+            if ((_shownPlayer == _badPlayer) && View.SrcName.Contains(" HQ"))
+            {
+                View.SrcName = View.SrcName.Replace(" HQ", " LQ");
+            }
+            else if ((_shownPlayer == _goodPlayer) && View.SrcName.Contains(" LQ"))
+            {
+                View.SrcName = View.SrcName.Replace(" LQ", " HQ");
+            }
+            else
+            {
+                if (_shownPlayer == _badPlayer)
+                {
+                    if (!View.SrcName.Contains(" LQ")) { View.SrcName += " LQ"; }
+                }
+
+            }
+            if (_badPlayer.IsPlaying)
+            {
+                if (View.SrcName.Contains(" (LQ: Buffering)")) { View.SrcName = View.SrcName.Replace(" (LQ: Buffering)", ""); }
+                if (View.SrcName.Contains(" (LQ: Preparing)")) { View.SrcName = View.SrcName.Replace(" (LQ: Preparing)", ""); }
+            }
+            else if (_badPlayer.IsStopped)
+            {
+                if (View.SrcName.Contains(" (LQ: Preparing)")) { View.SrcName = View.SrcName.Replace(" (LQ: Preparing)", ""); }
+                if (View.SrcName.Contains(" (LQ: Buffering)")) { View.SrcName = View.SrcName.Replace(" (LQ: Buffering)", ""); }
+            }
+            else if (_badPlayer.IsBuffering)
+            {
+                if (View.SrcName.Contains(" (LQ: Preparing)")) { View.SrcName = View.SrcName.Replace(" (LQ: Preparing)", ""); }
+                if (!View.SrcName.Contains(" (LQ: Buffering)")) { View.SrcName += " (LQ: Buffering)"; }
+            }
+            else if (_badPlayer.IsPreparing)
+            {
+                if (View.SrcName.Contains(" (LQ: Buffering)")) { View.SrcName = View.SrcName.Replace(" (LQ: Buffering)", ""); }
+                if (!View.SrcName.Contains(" (LQ: Preparing)")) { View.SrcName += " (LQ: Preparing)"; }
+            }
+            if (_goodPlayer.IsPlaying)
+            {
+                if (View.SrcName.Contains(" (HQ: Buffering)")) { View.SrcName = View.SrcName.Replace(" (HQ: Buffering)", ""); }
+                if (View.SrcName.Contains(" (HQ: Preparing)")) { View.SrcName = View.SrcName.Replace(" (HQ: Preparing)", ""); }
+            }
+            else if (_goodPlayer.IsStopped)
+            {
+                if (View.SrcName.Contains(" (HQ: Preparing)")) { View.SrcName = View.SrcName.Replace(" (HQ: Preparing)", ""); }
+                if (View.SrcName.Contains(" (HQ: Buffering)")) { View.SrcName = View.SrcName.Replace(" (HQ: Buffering)", ""); }
+            }
+            else if (_goodPlayer.IsBuffering)
+            {
+                if (View.SrcName.Contains(" (HQ: Preparing)")) { View.SrcName = View.SrcName.Replace(" (HQ: Preparing)", ""); }
+                if (!View.SrcName.Contains(" (HQ: Buffering)")) { View.SrcName += " (HQ: Buffering)"; }
+            }
+            else if (_goodPlayer.IsPreparing)
+            {
+                if (View.SrcName.Contains(" (HQ: Buffering)")) { View.SrcName = View.SrcName.Replace(" (HQ: Buffering)", ""); }
+                if (!View.SrcName.Contains(" (HQ: Preparing)")) { View.SrcName += " (HQ: Preparing)"; }
+            }
+            if (View.Maximized) {
                 if (_shownPlayer != _goodPlayer && _goodString != "" && _goodPlayer != null)
                 {
                     if (_goodPlayer.IsPlaying) GoodPlaying();
-                    else View.SwitchToGoodTimerEnabled = true;
+                    //else View.SwitchToGoodTimerEnabled = true;
+                    SwitchToGood();
                 }
             }
             else
@@ -396,7 +462,8 @@ namespace Presenter.Presenters
                 if (_shownPlayer != _badPlayer)
                 {
                     if (_badPlayer.IsPlaying) BadPlaying();
-                    else View.SwitchToBadTimerEnabled = true;
+                    SwitchToBad();
+                    //else View.SwitchToBadTimerEnabled = true;
                 }
             }
         }

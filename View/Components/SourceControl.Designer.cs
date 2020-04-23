@@ -46,31 +46,31 @@ namespace View.Components
             // 
             // controlHideTimer
             // 
-            this.controlHideTimer.Interval = 10000;
+            this.controlHideTimer.Interval = 1000;
             // 
             // nameHideTimer
             // 
-            this.nameHideTimer.Interval = 20000;
+            this.nameHideTimer.Interval = 1000;
             // 
             // switchToBadTimer
             // 
-            this.switchToBadTimer.Interval = 10000;
+            this.switchToBadTimer.Interval = 300000;
             // 
             // switchToGoodTimer
             // 
-            this.switchToGoodTimer.Interval = 5000;
+            this.switchToGoodTimer.Interval = 300000;
             // 
             // stopBadTimer
             // 
-            this.stopBadTimer.Interval = 60000;
+            this.stopBadTimer.Interval = 30000;
             // 
             // stopGoodTimer
             // 
-            this.stopGoodTimer.Interval = 120000;
+            this.stopGoodTimer.Interval = 60000;
             // 
             // stopOnInvisibleTimer
             // 
-            this.stopOnInvisibleTimer.Interval = 240000;
+            this.stopOnInvisibleTimer.Interval = 300000;
             // 
             // srcName
             // 

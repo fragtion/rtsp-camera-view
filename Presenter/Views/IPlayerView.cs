@@ -8,6 +8,9 @@ namespace Presenter.Views
         bool Play();
         bool Stop();
         bool IsPlaying { get; }
+        bool IsBuffering { get; }
+        bool IsPreparing { get; }
+        bool IsStopped { get; }
 
         event Action Playing;
         event Action Buffering;
