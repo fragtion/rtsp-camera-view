@@ -282,9 +282,7 @@ namespace View
         public void SetAppCaption()
         {
             this.Text = Application.ProductName + " " + Application.ProductVersion
-                + "  /  gg81@yandex.ru  /  Gr"
-                + (Application.CurrentCulture.TwoLetterISOLanguageName == "ru" ? "i" : "e")
-                + "gory Lobkov";
+            + "+fragtion";
         }
 
         public void ErrorAccessSettings(string msg)
