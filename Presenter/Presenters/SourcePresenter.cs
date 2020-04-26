@@ -454,7 +454,7 @@ namespace Presenter.Presenters
                 {
                     if (_goodPlayer.IsPlaying) GoodPlaying();
                     //else View.SwitchToGoodTimerEnabled = true;
-                    SwitchToGood();
+                    else SwitchToGood();
                 }
             }
             else
@@ -462,7 +462,7 @@ namespace Presenter.Presenters
                 if (_shownPlayer != _badPlayer)
                 {
                     if (_badPlayer.IsPlaying) BadPlaying();
-                    SwitchToBad();
+                    else SwitchToBad();
                     //else View.SwitchToBadTimerEnabled = true;
                 }
             }
