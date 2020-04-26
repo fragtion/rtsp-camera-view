@@ -384,7 +384,126 @@ namespace Presenter.Presenters
         private void CheckNeedSwitch()
         {
             if (log) View.Log("CheckNeedSwitch");
-            if (_badH <= 0 || _source == null) return;
+            if (_badH <= 0 || _source == null)
+            {
+                if (!View.SrcName.Contains(" (Offline)")
+                {
+                    View.SrcName = View.SrcName + " (Offline)";
+                }
+                return;
+            }
+            else
+            {
+                 if (View.SrcName.Contains(" (Offline)"))
+                 {
+                     View.SrcName = View.SrcName.Replace(" (Offline)", "");
+                 }
+            }
+            if ((_shownPlayer == _badPlayer) && View.SrcName.Contains(" HQ"))
+            {
+                View.SrcName = View.SrcName.Replace(" HQ", " LQ");
+            }
+            else if ((_shownPlayer == _goodPlayer) && View.SrcName.Contains(" LQ"))
+            {
+                View.SrcName = View.SrcName.Replace(" LQ", " HQ");
+            }
+            else
+            {
+                if (_shownPlayer == _badPlayer)
+                {
+                    if (!View.SrcName.Contains(" LQ"))
+                    {
+                        View.SrcName += " LQ";
+                    }
+                }
+            }
+            if (_badPlayer.IsPlaying)
+            {
+                if (View.SrcName.Contains(" (LQ: Buffering)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (LQ: Buffering)", "");
+                }
+                if (View.SrcName.Contains(" (LQ: Preparing)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (LQ: Preparing)", "");
+                }
+            }
+            else if (_badPlayer.IsStopped)
+            {
+                if (View.SrcName.Contains(" (LQ: Preparing)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (LQ: Preparing)", "");
+                }
+                if (View.SrcName.Contains(" (LQ: Buffering)")) {
+                    View.SrcName = View.SrcName.Replace(" (LQ: Buffering)", "");
+                }
+            }
+            else if (_badPlayer.IsBuffering)
+            {
+                if (View.SrcName.Contains(" (LQ: Preparing)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (LQ: Preparing)", "");
+                }
+                if (!View.SrcName.Contains(" (LQ: Buffering)"))
+                {
+                    View.SrcName += " (LQ: Buffering)";
+                }
+            }
+            else if (_badPlayer.IsPreparing)
+            {
+                if (View.SrcName.Contains(" (LQ: Buffering)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (LQ: Buffering)", "");
+                }
+                if (!View.SrcName.Contains(" (LQ: Preparing)"))
+                {
+                    View.SrcName += " (LQ: Preparing)";
+                }
+            }
+            if (_goodPlayer.IsPlaying)
+            {
+                if (View.SrcName.Contains(" (HQ: Buffering)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (HQ: Buffering)", "");
+                }
+                if (View.SrcName.Contains(" (HQ: Preparing)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (HQ: Preparing)", "");
+                }
+            }
+            else if (_goodPlayer.IsStopped)
+            {
+                if (View.SrcName.Contains(" (HQ: Preparing)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (HQ: Preparing)", "");
+                }
+                if (View.SrcName.Contains(" (HQ: Buffering)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (HQ: Buffering)", "");
+                }
+            }
+            else if (_goodPlayer.IsBuffering)
+            {
+                if (View.SrcName.Contains(" (HQ: Preparing)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (HQ: Preparing)", "");
+                }
+                if (!View.SrcName.Contains(" (HQ: Buffering)"))
+                {
+                    View.SrcName += " (HQ: Buffering)";
+                }
+            }
+            else if (_goodPlayer.IsPreparing)
+            {
+                if (View.SrcName.Contains(" (HQ: Buffering)"))
+                {
+                    View.SrcName = View.SrcName.Replace(" (HQ: Buffering)", "");
+                }
+                if (!View.SrcName.Contains(" (HQ: Preparing)"))
+                {
+                    View.SrcName += " (HQ: Preparing)";
+                }
+            }
             if (_source.goodOnlyInFullview == 1)
             {
                 if (View.Maximized)
